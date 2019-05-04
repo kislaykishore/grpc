@@ -1,0 +1,28 @@
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.8'
+  }
+}
+
+plugins {
+  id "com.google.protobuf" version "0.8.8"
+  id "java"
+  id "java-library"
+}
+
+repositories {
+  mavenCentral()
+}
+
+protobuf {
+  protoc {
+    artifact = 'com.google.protobuf:protoc:3.0.0'
+  }
+}
+
+dependencies {
+  api 'com.google.protobuf:protobuf-java:3.7.1'
+}

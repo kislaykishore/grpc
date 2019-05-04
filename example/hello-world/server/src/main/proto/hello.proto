@@ -1,0 +1,14 @@
+syntax = "proto3";
+option java_package = "org.kishore";
+
+service HelloService {
+  rpc SayHello(HelloRequest) returns (HelloResponse); 
+}
+
+message HelloResponse {
+  string reply = 1;
+}
+
+message HelloRequest {
+  string greeting = 1;
+}
