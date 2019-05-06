@@ -9,9 +9,13 @@ buildscript {
 
 plugins {
   id "com.google.protobuf" version "0.8.8"
-  id "java"
+  id "application"
   id "java-library"
+  id "eclipse"
+  
 }
+
+mainClassName = 'org.kishore.service.HelloServer'
 
 repositories {
   mavenCentral()
@@ -21,8 +25,26 @@ protobuf {
   protoc {
     artifact = 'com.google.protobuf:protoc:3.0.0'
   }
+
+  plugins {
+    grpc {
+      artifact = 'io.grpc:protoc-gen-grpc-java:1.0.0-pre2'
+    }
+  }
+  generateProtoTasks {
+        all()*.plugins { grpc {} }
+  }
 }
 
+def grpcVersion = '1.20.0' // CURRENT_GRPC_VERSION
+def protobufVersion = '3.7.1'
+def protocVersion = protobufVersion
+
 dependencies {
-  api 'com.google.protobuf:protobuf-java:3.7.1'
+  api "com.google.protobuf:protobuf-java:$protobufVersion"
+  compileOnly "javax.annotation:javax.annotation-api:1.3.2"
+  implementation "com.google.protobuf:protobuf-java-util:${protobufVersion}"  
+  implementation "io.grpc:grpc-protobuf:${grpcVersion}"
+  implementation "io.grpc:grpc-stub:${grpcVersion}"
+  runtimeOnly "io.grpc:grpc-netty-shaded:${grpcVersion}"
 }
